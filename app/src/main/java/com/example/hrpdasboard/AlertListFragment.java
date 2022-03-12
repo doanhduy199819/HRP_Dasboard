@@ -8,6 +8,9 @@ import android.text.Layout;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,6 +39,8 @@ public class AlertListFragment extends Fragment {
         AlertAdapter adapter = new AlertAdapter();
         eventRecyclerView.setAdapter(adapter);
 
+        setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -52,6 +57,25 @@ public class AlertListFragment extends Fragment {
         public void bind(String eventDetails) {
             eventText = eventDetails;
             eventTextView.setText(eventDetails);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_alert_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_new_event:
+                //
+                Intent intent = new Intent(getActivity(), NewEventActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
